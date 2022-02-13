@@ -31,7 +31,7 @@ string = { "\"" ~ (ASCII_ALPHANUMERIC)* ~ "\"" }
 // raw_string = { (!("\\" | "\"") ~ ASCII_ALPHANUMERIC)+ }
 // quoted_string = { "\"" ~ (ASCII_ALPHANUMERIC | " " | "." | "_" | "-" | "\\"  )* ~ "\"" }
 number = { (ASCII_DIGIT | ".")+ }
-operator = @{ "==" | "!=" | "=" | ">" | "<" | ">=" | "<=" | "+" | "-" | "*" | "/" | "%" }
+operator = @{ "==" | "!=" | "=" | ">" | "<" | ">=" | "<=" | "+" | "-" | "*" | "/" | "%" | "&" | "~" | "|" | "^" | "<<" | ">>" }
 
 // When taking only the next expression
 single_expr = _{ ( list | named_arg | assign | term | inline_pipeline ) }
