@@ -1,0 +1,81 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta content="width=device-width,initial-scale=1" name=viewport><meta property="og:title" content="Examples"><meta property="og:description" content="A simple example Here&rsquo;s a fairly simple SQL query:
+SELECT TOP 20 title, country, AVG(salary) AS average_salary, SUM(salary) AS sum_salary, AVG(salary + payroll_tax) AS average_gross_salary, SUM(salary + payroll_tax) AS sum_gross_salary, AVG(salary + payroll_tax + benefits_cost) AS average_gross_cost, SUM(salary + payroll_tax + benefits_cost) AS sum_gross_cost, COUNT(*) AS ct FROM employees WHERE start_date > DATE('2021-01-01') AND salary + payroll_tax + benefits_cost > 0 GROUP BY title, country HAVING COUNT(*) > 200 ORDER BY sum_gross_cost, country DESC Even this simple query demonstrates some of the problems with SQL&rsquo;s lack of abstractions:"><meta property="og:type" content="article"><meta property="og:url" content="https://prql-lang.org/examples/"><meta property="og:image" content="https://prql-lang.org/static/img/favicon-32x32.png"><meta property="article:section" content><meta property="og:site_name" content="PRQL"><title>Examples</title><meta content name=description><meta content="[]" name=keywords><link rel=apple-touch-icon sizes=180x180 href=/img/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/img/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/img/favicon-16x16.png><link href=/plugins/bootstrap/bootstrap.min.css rel=stylesheet><link href=/fonts/boxicons.min.css rel=stylesheet><link href=/plugins/highlight/highlight.css rel=stylesheet><script defer src=/plugins/highlight/highlight.min.js></script>
+<script defer src=/plugins/highlight/prql.js></script>
+<link href=/style.css rel=stylesheet></head><body><header id=header class="fixed-top d-flex align-items-center"><div class="container d-flex align-items-center"><a href=/ class="logo me-auto d-flex align-items-end"><img src=/img/icon.svg alt class=img-fluid height=50 width=50><h1>PRQL</h1></a><nav id=navbar class=navbar><ul><li><a href=https://prql-lang.org/book/ target=_blank rel=noopener>Book<sup><i class="bx bx-link-external"></i></sup></a></li><li><a href=https://prql-lang.org/playground/ target=_blank rel=noopener>Playground<sup><i class="bx bx-link-external"></i></sup></a></li><li><a href=/roadmap/>Roadmap</a></li><li><a href=/examples/>Examples</a></li><li><a href=/faq/>FAQ</a></li><li><a class=icon href=https://github.com/prql/prql><i class="bx bxl-github"></i></a></li></ul><i class="bx bx-list-ul mobile-nav-toggle"></i></nav></div></header><main id=main class="container no-hero"><article><h1>Examples</h1><h2 id=a-simple-example>A simple example</h2><p>Here&rsquo;s a fairly simple SQL query:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=display:flex><span><span style=color:#66d9ef>SELECT</span> TOP <span style=color:#ae81ff>20</span>
+</span></span><span style=display:flex><span>  title,
+</span></span><span style=display:flex><span>  country,
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>AVG</span>(salary) <span style=color:#66d9ef>AS</span> average_salary,
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>SUM</span>(salary) <span style=color:#66d9ef>AS</span> sum_salary,
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>AVG</span>(salary <span style=color:#f92672>+</span> payroll_tax) <span style=color:#66d9ef>AS</span> average_gross_salary,
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>SUM</span>(salary <span style=color:#f92672>+</span> payroll_tax) <span style=color:#66d9ef>AS</span> sum_gross_salary,
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>AVG</span>(salary <span style=color:#f92672>+</span> payroll_tax <span style=color:#f92672>+</span> benefits_cost) <span style=color:#66d9ef>AS</span> average_gross_cost,
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>SUM</span>(salary <span style=color:#f92672>+</span> payroll_tax <span style=color:#f92672>+</span> benefits_cost) <span style=color:#66d9ef>AS</span> sum_gross_cost,
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>COUNT</span>(<span style=color:#f92672>*</span>) <span style=color:#66d9ef>AS</span> ct
+</span></span><span style=display:flex><span><span style=color:#66d9ef>FROM</span>
+</span></span><span style=display:flex><span>  employees
+</span></span><span style=display:flex><span><span style=color:#66d9ef>WHERE</span>
+</span></span><span style=display:flex><span>  start_date <span style=color:#f92672>&gt;</span> DATE(<span style=color:#e6db74>&#39;2021-01-01&#39;</span>)
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>AND</span> salary <span style=color:#f92672>+</span> payroll_tax <span style=color:#f92672>+</span> benefits_cost <span style=color:#f92672>&gt;</span> <span style=color:#ae81ff>0</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>GROUP</span> <span style=color:#66d9ef>BY</span>
+</span></span><span style=display:flex><span>  title,
+</span></span><span style=display:flex><span>  country
+</span></span><span style=display:flex><span><span style=color:#66d9ef>HAVING</span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>COUNT</span>(<span style=color:#f92672>*</span>) <span style=color:#f92672>&gt;</span> <span style=color:#ae81ff>200</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>ORDER</span> <span style=color:#66d9ef>BY</span>
+</span></span><span style=display:flex><span>  sum_gross_cost,
+</span></span><span style=display:flex><span>  country <span style=color:#66d9ef>DESC</span>
+</span></span></code></pre></div><p>Even this simple query demonstrates some of the problems with SQL&rsquo;s lack of
+abstractions:</p><ul><li>Unnecessary repetition — the calculations for each measure are repeated,
+despite deriving from a previous measure. The repetition in the <code>WHERE</code>
+clause obfuscates the meaning of the expression.</li><li>Functions have multiple operators — <code>HAVING</code> & <code>WHERE</code> are fundamentally
+similar operations applied at different stages of the pipeline, but SQL&rsquo;s lack
+of pipeline-based precedence requires it to have two different operators.</li><li>Operators have multiple functions — the <code>SELECT</code> operator both
+creates new aggregations, and selects which columns to include.</li><li>Awkward syntax — when developing the query, commenting out the final line of
+the <code>SELECT</code> list causes a syntax error because of how commas are handled, and
+we need to repeat the columns in the <code>GROUP BY</code> clause in the <code>SELECT</code> list.</li></ul><p>Here&rsquo;s the same query with PRQL:</p><pre tabindex=0><code class=language-prql data-lang=prql>from employees                                # Each line transforms the previous result.
+filter start_date &gt; @2021-01-01               # Clear date syntax.
+derive [                                      # `derive` adds columns / variables.
+  gross_salary = salary + payroll_tax,
+  gross_cost = gross_salary + benefits_cost   # Variables can use other variables.
+]
+filter gross_cost &gt; 0
+group [title, country] (                      # `group` runs a pipeline over each group.
+  aggregate [                                 # `aggregate` reduces a column to a row.
+    average salary,
+    sum     salary,
+    average gross_salary,
+    sum     gross_salary,
+    average gross_cost,
+    sum_gross_cost = sum gross_cost,          # `=` sets a column name.
+    ct = count,
+  ]
+)
+sort [sum_gross_cost, -country]               # `-country` means descending order.
+filter ct &gt; 200
+take 20
+</code></pre><p>As well as using variables to reduce unnecessary repetition, the query is also
+more readable — it flows from top to bottom, each line representing a
+transformation of the previous line&rsquo;s result. For example, <code>TOP 20</code> / <code>take 20</code>
+modify the final result in both queries — but only PRQL represents it as the
+final transformation. And context is localized — the <code>aggregate</code> transform is
+immediately wrapped in a <code>group</code> transform containing the columns to group by.</p><p>While PRQL is designed for reading & writing by people, it&rsquo;s also much simpler
+for code to construct or edit PRQL queries. In SQL, adding a filter to a query
+involves parsing the query to find and then modify the <code>WHERE</code> statement, or
+wrapping the existing query in a CTE. In PRQL, adding a filter just involves
+appending a <code>filter</code> transformation to the query.</p><p>For more examples, check out the
+<a href=https://prql-lang.org/book/ target=_blank rel=noopener>PRQL Book<sup><i class="bx bx-link-external"></i></sup></a>
+.</p></article></main><footer id=footer><div class=container><div class=row><div class="col-md-6 py-3"><h3>Help the project</h3><ul><li>Send a link to PRQL to a couple of people whose opinion you respect.</li><li>Rewrite any of your own queries to PRQL to see if it makes sense.
+You can use the
+<a href=https://prql-lang.org/playground target=_blank rel=noopener>playground<sup><i class="bx bx-link-external"></i></sup></a>
+and submit issues
+<a href=https://github.com/prql/prql/issues target=_blank rel=noopener>here<sup><i class="bx bx-link-external"></i></sup></a>
+. We are looking for any
+use-cases that expose a poor design choice, a need of a feature, a pain point
+or are just a sharp edge of the language.</li></ul><a class=btn href=https://github.com/prql/prql target=_blank>Contribute<sup><i class="bx bx-link-external"></i></sup></a></div><div class="col-md-6 py-3 text-end"><p>Subscribe to
+<a href=https://github.com/prql/prql/issues/1 target=_blank rel=noopener>issue #1 for a GitHub notification on updates<sup><i class="bx bx-link-external"></i></sup></a>
+.</p><p>Join our
+<a href=https://discord.com/invite/eQcfaCmsNc target=_blank rel=noopener>Discord server<sup><i class="bx bx-link-external"></i></sup></a>
+.</p><p><a class=btn-icon href=https://github.com/prql/prql target=_blank title="GitHub repository"><i class="bx bxl-github"></i></a>
+<a class=btn-icon href=https://discord.com/invite/eQcfaCmsNc target=_blank title="Join the Discord"><i class="bx bxl-discord"></i></a></p><p>© 2022, PRQL developers. Apache 2.0 Licensed</p></div></div></div></footer><a href=# class="back-to-top d-flex align-items-center justify-content-center"><i class="bx bx-up-arrow-alt"></i></a>
+<script src=/main.js></script>
+<script src=/plugins/bootstrap/bootstrap.bundle.min.js></script></body></html>
