@@ -941,18 +941,17 @@ checksum = "05a0bd019339e5d968b37855180087b7b9d512c5046fbd244cf8c95687927d6e"
 
 [[package]]
 name = "insta"
-version = "1.17.0"
+version = "1.20.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1e21173d5699a654cf191b0c05b0a937bb4f7cf07ee2e32da2af07a963e31577"
+checksum = "58a931b01c76064c5be919faa2ef0dc570e9a889dcd1e5fef08a8ca6eb4d6c0b"
 dependencies = [
  "console",
  "globset",
+ "linked-hash-map",
  "once_cell",
- "serde",
- "serde_json",
- "serde_yaml",
  "similar",
  "walkdir",
+ "yaml-rust",
 ]
 
 [[package]]
